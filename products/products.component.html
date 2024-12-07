@@ -1,0 +1,59 @@
+
+
+<div *ngIf="loading" class="loadingScreen position-fixed top-0 bottom-0 end-0 start-0 bg-white">
+    <div class="loader"></div>
+</div>
+
+
+<div class="d-flex justify-content-around mt-5 mb-5">
+    <input [(ngModel)]="term" type="search" class="form-control w-75" placeholder="search by title">
+</div>
+
+
+
+
+
+<section *ngIf="term==''" id="product1" class="section-p1"      >
+        <div class="product-container">
+        <div class="product cursor-pointer" *ngFor="let prod of products[next_prev]" >
+            <div [routerLink]="['/productDetails',prod._id]">
+            <img [src]="prod.imageCover" alt="img">
+            <span class="text-main font-sm" >{{prod.category.name}}</span>
+            <h6 class="py-2">{{prod.title | fitTitle:2}}</h6> <!--pipe-->
+            <div class="d-flex justify-content-around">
+                <span>{{prod.price}} $</span>
+                <span>{{prod.ratingsAverage}} <i class="fa fa-star rating-color"></i> </span>
+            </div>
+        </div>
+                <button (click)="addProductToCart(prod._id)" class="btn bg-main text-white mt-3">+ add</button>
+        </div>
+        </div>
+
+        <div class="mt-5 mb-5 d-flex justify-content-around ">
+            <nav aria-label="Page navigation example" >
+                <ul class="pagination">
+                  <li (click)="prev()" class="page-item cursor-pointer"><a class="page-link bg-main text-white" >Previous</a></li>
+                  <li class="page-item"><a class="page-link bg-main text-white" > page {{next_prev+1}} of {{pages}} </a></li>
+                  <li (click)="next()" class="page-item cursor-pointer"><a class="page-link bg-main text-white" >Next</a></li>
+                </ul>
+              </nav>
+            </div>
+</section>
+
+
+<section *ngIf="term!=''" id="product1" class="section-p1">
+        <div class="product-container">
+        <div class="product cursor-pointer" *ngFor="let prod of productlist | searchProduct:term"    >
+            <div [routerLink]="['/productDetails',prod._id]">
+            <img [src]="prod.imageCover" alt="img">
+            <span class="text-main font-sm" >{{prod.category.name}}</span>
+            <h6 class="py-2">{{prod.title | fitTitle:2}}</h6> <!--pipe-->
+            <div class="d-flex justify-content-around">
+                <span>{{prod.price}} $</span>
+                <span>{{prod.ratingsAverage}} <i class="fa fa-star rating-color"></i> </span>
+            </div>
+        </div>
+            <button (click)="addProductToCart(prod._id)" class="btn bg-main text-white mt-3">+ add</button>
+        </div>
+        </div>
+</section>

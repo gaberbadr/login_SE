@@ -1,0 +1,30 @@
+<div class="my-4">
+    <h2>Login Now</h2>
+    <div *ngIf="apierror" class="alert alert-danger p-0 mt-1">
+        <p class="m-0 p-1">{{apierror}}</p> 
+    </div>
+    <form [formGroup]="loginform" >
+    <div class="mt-2">
+        <label for="email">email :</label>
+        <input type="email" formControlName="email" name="email" class="form-control">
+        <div class="alert alert-danger p-0 mt-1" *ngIf="loginform.get('email')?.touched && loginform.get('email')?.errors">
+            <p class="m-0 p-1" *ngIf="loginform.get('email')?.errors?.['required']">email is required </p>
+            <p class="m-0 p-1" *ngIf="loginform.get('email')?.errors?.['email']">enter a valid email </p>
+        </div>
+    </div>
+    <div class="mt-2">
+        <label for="password">password :</label>
+        <input type="password" formControlName="password" name="password" class="form-control">
+        <div class="alert alert-danger p-0 mt-1" *ngIf="loginform.get('password')?.touched && loginform.get('password')?.errors">
+            <p class="m-0 p-1" *ngIf="loginform.get('password')?.errors?.['required']">password is required </p>
+            <p class="m-0 p-1" *ngIf="loginform.get('password')?.errors?.['pattern']">password must start with a capital letter, must contain letters and numbers only ,its min lenth is 7, its max length is 20</p>
+        </div>
+    </div>
+    <div class="d-flex mt-3 justify-content-end">
+    <button [disabled]="loginform.invalid" (click)="submitLogin()" class="bg-main btn text-white">
+        <span *ngIf="!isloading">Log in</span>
+        <span *ngIf="isloading"><i class="fas fa-spinner fa-spin ms-2"></i></span> 
+    </button>
+</div>
+</form>
+</div>
